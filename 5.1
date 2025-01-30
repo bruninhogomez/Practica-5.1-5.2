@@ -1,0 +1,45 @@
+
+
+
+
+a) Clases
+
+class Estudiante(val nombre: String, val dni: String) {
+    fun inscribirse(curso: Curso) {
+        curso.agregarAlumno(this)
+    }
+}
+
+class Curso(val nombre: String, val codigo: String) {
+    private val estudiantes: MutableList<Estudiante> = mutableListOf()
+
+    fun agregarAlumno(estudiante: Estudiante) {
+        estudiantes.add(estudiante)
+        println("${estudiante.nombre} ha sido inscrito en $nombre")
+    }
+
+    fun mostrarEstudiantes() {
+        println("Estudiantes inscritos en $nombre:")
+        estudiantes.forEach { println("- ${it.nombre} (${it.dni})") }
+    }
+}
+
+b) Relaciones
+
+La relación está representada mediante una lista mutable de estudiantes dentro de Curso. La inscripción se realiza mediante inscribirse() en Estudiante, que llama a agregarAlumno() en Curso.
+
+c) Main (Prueba del sistema)
+
+fun main() {
+    val curso1 = Curso("Programación en Kotlin", "KOT101")
+    
+    val estudiante1 = Estudiante("Bruno", "12345678A")
+    val estudiante2 = Estudiante("Ana", "87654321B")
+    
+    estudiante1.inscribirse(curso1)
+    estudiante2.inscribirse(curso1)
+
+    curso1.mostrarEstudiantes()
+}
+
+

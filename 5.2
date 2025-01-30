@@ -1,0 +1,119 @@
+a) Una breve lista de los conceptos que te has encontrado en los diagramas UML que se asemejan a los conceptos de 
+
+programación orientada a objetos. Por ejemplo: Clases: GestorPedidos
+
+
+    1. Clases: Representan entidades del sistema, como Cliente, Pedido, Producto, Pago
+.
+    2. Atributos: Propiedades de las clases, como nombre, descripción, precio, etc.
+
+    3. Métodos: Funciones o comportamientos de las clases, como calcularCosteTotal(), actualizarEstado().
+
+    4. Relaciones: Asociaciones entre clases, como herencia, asociación, agregación.
+
+    5. Herencia: Relación de generalización/especialización, como una clase FormaPago que tiene subclases Card, Cash, Cheque.
+
+    6. Composición/Aggregación: Relaciones de "parte de", como un Pedido que contiene uno o varios Productos.
+
+
+b) Explicación de la herramienta que has utilizado para generar el diagrama UML, y si la has contrastado con otra 
+
+y conclusiones de porque has elegido esa.
+
+
+1. Visual Paradigm
+    • Características: Es una de las herramientas más completas para UML, ofreciendo una amplia gama de diagramas y 
+    características avanzadas como generación de código, ingeniería inversa y colaboración en tiempo real.
+    • Plataformas: Windows, macOS, Linux.
+    • Precio: Ofrece una versión gratuita con funcionalidades limitadas. Las versiones de pago comienzan desde $4 al mes.
+    • Ventajas: Muy potente y adecuada para proyectos complejos.
+
+
+c)Explicación de la herramienta que has utilizado parra generar el diagrama UML, y si la has contrastado con otra y conclusiones 
+
+de porque has elegido esa.
+
+Para crear el diagrama UML, he utilizado Lucidchart, una herramienta en línea que permite diseñar diagramas de forma intuitiva
+
+ y colaborativa. He optado por 
+
+Lucidchart porque ofrece una interfaz sencilla con una gran variedad de elementos UML predefinidos, lo que facilita la creación 
+
+de diagramas sin necesidad de configuraciones avanzadas.
+
+Codigo :
+class Cliente:
+    def __init__(self, nombre, direccion, email):
+        self.nombre = nombre
+        self.direccion = direccion
+        self.email = email
+
+    def realizarPedido(self, pedido):
+        # Lógica para realizar un pedido
+        pass
+
+class Pedido:
+    def __init__(self, idPedido, fechaPedido, productos):
+        self.idPedido = idPedido
+        self.fechaPedido = fechaPedido
+        self.productos = productos
+        self.pagos = []
+        self.estado = "pdte"
+        self.costeTotal = self.calcularCosteTotal()
+
+    def calcularCosteTotal(self):
+        total = 0
+        for producto in self.productos:
+            total += producto.precio + producto.impuestos
+        return total
+
+    def actualizarEstado(self, nuevoEstado):
+        self.estado = nuevoEstado
+
+    def añadirPago(self, pago):
+        self.pagos.append(pago)
+
+class Producto:
+    def __init__(self, idProducto, nombre, descripcion, precio, impuestos, stock):
+        self.idProducto = idProducto
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.precio = precio
+        self.impuestos = impuestos
+        self.stock = stock
+
+    def actualizarStock(self, cantidad):
+        self.stock += cantidad
+
+class Pago:
+    def __init__(self, idPago, fechaPago, cantidad, formaPago):
+        self.idPago = idPago
+        self.fechaPago = fechaPago
+        self.cantidad = cantidad
+        self.formaPago = formaPago
+
+    def registrarPago(self):
+        # Lógica para registrar el pago
+        pass
+
+class FormaPago:
+    def __init__(self, tipo):
+        self.tipo = tipo
+
+class Card(FormaPago):
+    def __init__(self, numeroTarjeta, fechaCaducidad, tipoTarjeta):
+        super().__init__("Card")
+        self.numeroTarjeta = numeroTarjeta
+        self.fechaCaducidad = fechaCaducidad
+        self.tipoTarjeta = tipoTarjeta
+
+class Cash(FormaPago):
+    def __init__(self, tipoMoneda):
+        super().__init__("Cash")
+        self.tipoMoneda = tipoMoneda
+
+class Cheque(FormaPago):
+    def __init__(self, nombre, banco):
+        super().__init__("Cheque")
+        self.nombre = nombre
+        self.banco = banco
